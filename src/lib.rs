@@ -1,9 +1,11 @@
+mod global;
 mod level;
 mod logger;
+mod macros;
 
-pub use logger::Logger;
-
+pub use global::{info, init};
 pub use level::Level;
+pub use logger::Logger;
 
 pub fn add(left: u64, right: u64) -> u64 {
     left + right
