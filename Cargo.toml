@@ -8,7 +8,7 @@ documentation = "https://github.com/arferreira/sheen"
 readme = "./README.md"
 description = "A polished, colorful logging library for Rust"
 keywords = ["rust", "logging", "tracing", "sheen", "log"]
-categories = ["development-tools::debugging", "logging"]
+categories = ["development-tools::debugging"]
 
 [dependencies]
 owo-colors = "4.2.3"
