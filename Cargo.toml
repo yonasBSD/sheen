@@ -5,7 +5,7 @@ edition = "2024"
 license = "MIT"
 repository = "https://github.com/arferreira/sheen"
 documentation = "https://github.com/arferreira/sheen"
-readme = "../README.md"
+readme = "./README.md"
 keywords = ["rust", "logging", "tracing", "sheen", "log"]
 categories = ["development-tools::debugging", "logging"]
 
