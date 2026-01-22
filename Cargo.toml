@@ -6,6 +6,7 @@ license = "MIT"
 repository = "https://github.com/arferreira/sheen"
 documentation = "https://github.com/arferreira/sheen"
 readme = "./README.md"
+description = "A polished, colorful logging library for Rust"
 keywords = ["rust", "logging", "tracing", "sheen", "log"]
 categories = ["development-tools::debugging", "logging"]
 
