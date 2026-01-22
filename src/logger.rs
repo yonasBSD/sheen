@@ -1,4 +1,5 @@
 use owo_colors::OwoColorize;
+use std::fmt::Debug;
 
 use crate::Level;
 
@@ -19,26 +20,26 @@ impl Logger {
         Self { level }
     }
 
-    pub fn info(&self, message: &str) {
-        self.log(Level::Info, message);
+    pub fn info(&self, message: &str, fields: &[(&str, &dyn Debug)]) {
+        self.log(Level::Info, message, fields);
     }
 
-    pub fn debug(&self, message: &str) {
-        self.log(Level::Debug, message);
+    pub fn debug(&self, message: &str, fields: &[(&str, &dyn Debug)]) {
+        self.log(Level::Debug, message, fields);
     }
-    pub fn trace(&self, message: &str) {
-        self.log(Level::Trace, message);
-    }
-
-    pub fn warn(&self, message: &str) {
-        self.log(Level::Warn, message);
+    pub fn trace(&self, message: &str, fields: &[(&str, &dyn Debug)]) {
+        self.log(Level::Trace, message, fields);
     }
 
-    pub fn error(&self, message: &str) {
-        self.log(Level::Error, message);
+    pub fn warn(&self, message: &str, fields: &[(&str, &dyn Debug)]) {
+        self.log(Level::Warn, message, fields);
     }
 
-    pub fn log(&self, level: Level, message: &str) {
+    pub fn error(&self, message: &str, fields: &[(&str, &dyn Debug)]) {
+        self.log(Level::Error, message, fields);
+    }
+
+    pub fn log(&self, level: Level, message: &str, fields: &[(&str, &dyn Debug)]) {
         if !self.enabled(level) {
             return;
         }
@@ -52,7 +53,11 @@ impl Logger {
             Level::Error => level_str.red().to_string(),
         };
 
-        eprintln!("{} {}", level_str, message)
+        eprint!("{} {}", level_str, message);
+        for (key, value) in fields {
+            eprint!(" {}={:?}", key, value);
+        }
+        eprintln!();
     }
 }
 
