@@ -2,6 +2,12 @@
 name = "sheen"
 version = "0.1.0"
 edition = "2024"
+license = "MIT"
+repository = "https://github.com/arferreira/sheen"
+documentation = "https://github.com/arferreira/sheen"
+readme = "../README.md"
+keywords = ["rust", "logging", "tracing", "sheen", "log"]
+categories = ["development-tools::debugging", "logging"]
 
 [dependencies]
 owo-colors = "4.2.3"
