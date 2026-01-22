@@ -15,6 +15,10 @@ impl Logger {
         level >= self.level
     }
 
+    pub fn with_level(level: Level) -> Self {
+        Self { level }
+    }
+
     pub fn info(&self, message: &str) {
         self.log(Level::Info, message);
     }
@@ -39,12 +43,13 @@ impl Logger {
             return;
         }
 
+        let level_str = format!("{:<5}", level.as_str());
         let level_str = match level {
-            Level::Trace => level.as_str().dimmed().to_string(),
-            Level::Info => level.as_str().cyan().to_string(),
-            Level::Warn => level.as_str().yellow().to_string(),
-            Level::Debug => level.as_str().magenta().to_string(),
-            Level::Error => level.as_str().red().to_string(),
+            Level::Trace => level_str.dimmed().to_string(),
+            Level::Info => level_str.cyan().to_string(),
+            Level::Warn => level_str.yellow().to_string(),
+            Level::Debug => level_str.magenta().to_string(),
+            Level::Error => level_str.red().to_string(),
         };
 
         eprintln!("{} {}", level_str, message)

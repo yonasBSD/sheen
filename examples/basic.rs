@@ -1,7 +1,7 @@
 use sheen::Logger;
 
 fn main() {
-    let logger = Logger::new();
+    let logger = Logger::with_level(sheen::Level::Trace);
 
     logger.trace("this is trace");
     logger.debug("this is debug");
