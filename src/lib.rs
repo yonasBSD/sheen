@@ -1,4 +1,7 @@
 mod level;
+mod logger;
+
+pub use logger::Logger;
 
 pub use level::Level;
 
