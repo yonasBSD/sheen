@@ -7,6 +7,10 @@ A polished, colorful logging library for Rust ✨
 
 ![sheen demo](sheen.gif)
 
+## Inspiration
+
+sheen is inspired by [charmbracelet/log](https://github.com/charmbracelet/log), the excellent Go logging library. We wanted to bring the same polished experience to Rust.
+
 ## Features
 
 - Colorful, human-readable output
