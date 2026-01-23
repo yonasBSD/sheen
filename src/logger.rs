@@ -9,6 +9,7 @@ pub struct Logger {
     show_timestamp: bool,
     prefix: Option<String>,
     colorize: bool,
+    fields: Vec<(String, String)>,
 }
 
 impl Logger {
@@ -38,6 +39,22 @@ impl Logger {
     pub fn colorize(mut self, enabled: bool) -> Self {
         self.colorize = enabled;
         self
+    }
+
+    pub fn with(&self, fields: &[(&str, &dyn std::fmt::Debug)]) -> Self {
+        let mut new_fields = self.fields.clone();
+        for (key, value) in fields {
+            new_fields.push((key.to_string(), format!("{:?}", value)));
+        }
+
+        // returns a new Logger, doesn't mutate original
+        Self {
+            level: self.level,
+            show_timestamp: self.show_timestamp,
+            prefix: self.prefix.clone(),
+            colorize: self.colorize,
+            fields: new_fields,
+        }
     }
 
     pub fn info(&self, message: &str, fields: &[(&str, &dyn Debug)]) {
@@ -95,6 +112,11 @@ impl Logger {
         };
 
         eprint!("{} {}", level_str, message);
+
+        for (key, value) in &self.fields {
+            eprint!(" {}={}", key, value);
+        }
+
         for (key, value) in fields {
             eprint!(" {}={:?}", key, value);
         }
@@ -109,6 +131,7 @@ impl Default for Logger {
             show_timestamp: true,
             prefix: None,
             colorize: std::io::stderr().is_terminal(), // auto-detect (TTY)
+            fields: Vec::new(),
         }
     }
 }
