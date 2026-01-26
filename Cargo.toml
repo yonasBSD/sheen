@@ -19,3 +19,7 @@ log = { version = "0.4.29", optional = true, features = ["std"] }
 
 [dev-dependencies]
 log = "0.4.29"
+
+[[example]]
+name = "log_adapter"
+required-features = ["log"]
