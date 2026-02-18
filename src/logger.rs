@@ -10,6 +10,7 @@ pub struct Logger {
     colorize: bool,
     fields: Vec<(String, String)>,
     formatter: Box<dyn Formatter>,
+    time_format: Option<String>,
 }
 
 impl Logger {
@@ -46,6 +47,11 @@ impl Logger {
         self
     }
 
+    pub fn time_format(mut self, time_format: &str) -> Self {
+        self.time_format = Some(time_format.to_string());
+        self
+    }
+
     pub fn with(&self, fields: &[(&str, &dyn std::fmt::Debug)]) -> Self {
         let mut new_fields = self.fields.clone();
         for (key, value) in fields {
@@ -60,6 +66,7 @@ impl Logger {
             colorize: std::io::stderr().is_terminal(),
             fields: new_fields,
             formatter: Box::new(TextFormatter::new(self.colorize)),
+            time_format: self.time_format.clone(),
         }
     }
 
@@ -88,7 +95,8 @@ impl Logger {
         }
 
         let timestamp = if self.show_timestamp {
-            Some(Local::now().format("%H:%M:%S").to_string())
+            let fmt = self.time_format.as_deref().unwrap_or("%H:%M:%S");
+            Some(Local::now().format(fmt).to_string())
         } else {
             None
         };
@@ -115,6 +123,7 @@ impl Default for Logger {
             colorize: std::io::stderr().is_terminal(), // auto-detect (TTY)
             fields: Vec::new(),
             formatter: Box::new(TextFormatter::new(std::io::stderr().is_terminal())),
+            time_format: None,
         }
     }
 }
